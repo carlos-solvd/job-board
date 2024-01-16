@@ -21,6 +21,13 @@ export const resolvers = {
         jobs: () => getJobs()
     },
 
+    Mutation: {
+        createJob: (_root, { title, description}) => {
+            const companyId = 'FjcJCHJALA4i'
+            return createJob({ companyId, title, description })
+        }
+    },
+
     Company: {
         jobs: (company) => getJobsByCompany(company.id)
     },
