@@ -55,6 +55,20 @@ export const jobByIdQuery = gql`
   ${jobDetailFragment}
 `;
 
+export const jobsQuery = gql`
+  query Jobs {
+    jobs {
+      id
+      date
+      title
+      company {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export const createJobMutation = gql`
   mutation CreateJob($input: CreateJobInput!) {
     job: createJob(input: $input) {
@@ -63,24 +77,3 @@ export const createJobMutation = gql`
   }
   ${jobDetailFragment}
 `;
-
-export async function getJobs() {
-  const query = gql`
-    query Jobs {
-      jobs {
-        id
-        date
-        title
-        company {
-          id
-          name
-        }
-      }
-    }
-  `;
-  const { data } = await apolloClient.query({
-    query,
-    fetchPolicy: 'network-only',
-  });
-  return data.jobs;
-}
